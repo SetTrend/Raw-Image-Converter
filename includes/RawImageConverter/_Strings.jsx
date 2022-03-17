@@ -55,8 +55,8 @@ var s =
 		}),
 	Interlaced: localize(
 		{
-			en: "Interlaced:",
-			de: "Halbbildverfahren:"
+			en: "Interlaced",
+			de: "Halbbildverfahren"
 		}),
 	InterlacedHelp: localize(
 		{
@@ -83,17 +83,27 @@ var s =
 		}),
 	Copyright: localize("$$$/JavaScripts/ImageProcessor/Copyright=Copyright Info:"),
 	CopyrightHelp: localize("$$$/JavaScripts/ImageProcessor/CopyrightHelp=Add copyright metadata to your images"),
-	Factor: localize(
+	Resize: localize(
 		{
-			en: "Factor:",
-			de: "Faktor:"
+			en: "Size:",
+			de: "Größe:"
 		}),
-	FactorHelp: localize(
+	ResizeHelp: localize(
 		{
 			en: "Select scaling factor for downsizing resulting image",
 			de: "Wähle den Skalierungsfaktor, auf den verkleinert werden soll"
 		}),
-	FactorPercent: "%",
+	Crop: localize(
+		{
+			en: "Crop:",
+			de: "Freistellen:"
+		}),
+	CropHelp: localize(
+		{
+			en: "Select percentage of image remaining after image border has been cropped",
+			de: "Bestimme, wieviel Prozent des Bildes nach dem Beschneiden des Bildrands erhalten bleiben soll"
+		}),
+	Percent: "%",
 	PickXML: localize("$$$/JavaScripts/ImageProcessor/PickXML=Pick an XML file to load"),
 	PickXMLWin: localize("$$$/JavaScripts/ImageProcessor/PickXMLWin=XML Files: *.xml"),
 	PickXMLSave: localize("$$$/JavaScripts/ImageProcessor/PickXMLSave=Pick an XML file to save"),
@@ -104,7 +114,7 @@ var s =
 	JPEGQuality: localize("$$$/JavaScripts/ImageProcessor/JPEGQuality=JPEG Quality must be between 0 and 12."),
 	PNGCompression: localize(
 		{
-			en: "PNG compression must be between 0 and 9.",
+			en: "PNG compression value must be between 0 and 9.",
 			de: "Die PNG-Kompression muss zwischen 0 und 9 liegen."
 		}),
 	JPEGScaling: localize(
@@ -127,11 +137,41 @@ var s =
 			en: "You must specify a valid scaling factor for TIFF when using resize image options for TIFF.",
 			de: "Du musst einen gültigen Skalierungsfaktor für TIFF angeben, wenn für TIFF die Skalierungsoption aktiviert ist."
 		}),
+	JPEGCropping: localize(
+		{
+			en: "You must specify a valid cropping factor for JPEG when using resize image options for JPEG.",
+			de: "Du musst einen gültigen Freistellungsfaktor für JPEG angeben, wenn für JPEG die Skalierungsoption aktiviert ist."
+		}),
+	PNGCropping: localize(
+		{
+			en: "You must specify a valid cropping factor for PNG when using resize image options for JPEG.",
+			de: "Du musst einen gültigen Freistellungsfaktor für PNG angeben, wenn für JPEG die Skalierungsoption aktiviert ist."
+		}),
+	PSDCropping: localize(
+		{
+			en: "You must specify a valid cropping factor for PSD when using resize image options for PSD.",
+			de: "Du musst einen gültigen Freistellungsfaktor für PSD angeben, wenn für PSD die Skalierungsoption aktiviert ist."
+		}),
+	TIFFCropping: localize(
+		{
+			en: "You must specify a valid cropping factor for TIFF when using resize image options for TIFF.",
+			de: "Du musst einen gültigen Freistellungsfaktor für TIFF angeben, wenn für TIFF die Skalierungsoption aktiviert ist."
+		}),
 	OneType: localize("$$$/JavaScripts/ImageProcessor/OneType=You must save to at least one file type."),
 	Scaling: localize(
 		{
 			en: "Scaling factor must be defined to use scaling function!",
 			de: "Der Skalierungsfaktor muss definiert sein, damit die Skalierungsfunktion angewendet werden kann."
+		}),
+	Cropping: localize(
+		{
+			en: "Scaling factor must be defined to use cropping function!",
+			de: "Der Skalierungsfaktor muss definiert sein, damit die Freistellungsfunktion angewendet werden kann."
+		}),
+	NoSliderPairFound: localize(
+		{
+			en: "Pair of 'editnumber' and 'slider' controls expected yet could not be found.",
+			de: "Ein Paar aus 'editnumber'- und 'slider'-Steuerlementen wurde erwartet, konnte jedoch nicht gefunden werden."
 		}),
 	KeepStructure: localize("$$$/JavaScripts/ImageProcessor/KeepStructure=Keep folder structure"),
 	IncludeAllSubfolders: localize("$$$/JavaScripts/ImageProcessor/IncludeAll=Include All sub-folders"),

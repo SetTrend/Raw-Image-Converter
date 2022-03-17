@@ -33,6 +33,16 @@ function ParametersDialog(params, filesFromBridge)
 
 	var d = this.dlgMain = new Window('dialog', s.Title);		// create the main dialog window, this holds all our data
 
+	// arrays of dialog control groups for easier handling
+	d.jpgR = [];
+	d.jpgC = [];
+	d.pngR = [];
+	d.pngC = [];
+	d.psdR = [];
+	d.psdC = [];
+	d.tifR = [];
+	d.tifC = [];
+
 	d.orientation = 'row';	// horizonal layout  (input elements on the left, buttons on the right)
 	d.alignChildren = 'fill';
 
@@ -289,18 +299,46 @@ function ParametersDialog(params, filesFromBridge)
 	g2.spacing = 1;
 	g2.margins = [this.marginLeft, 0, 0, 0];
 
-	t = d.stJPEGFactor = g2.add('statictext', undefined, s.Factor);
-	t.helpTip = s.FactorHelp;
+	t = g2.add('statictext', undefined, s.Resize);
+	t.helpTip = s.ResizeHelp;
 	t.justify = 'right';
+	d.jpgR.push(t);
 
-	t = d.slJPEGFactor = g2.add('slider', undefined, g.MinResize, g.MinResize, g.MaxResize);
+	t = d.slJPEGResize = g2.add('slider', undefined, g.MinResize, g.MinResize, g.MaxResize);
+	d.jpgR.push(t);
 
-	t = d.enJPEGFactor = g2.add('editnumber', undefined, undefined, g.MinResize, g.MaxResize);
-	t.helpTip = s.FactorHelp;
+	t = d.enJPEGResize = g2.add('editnumber', undefined, undefined, g.MinResize, g.MaxResize);
+	t.helpTip = s.ResizeHelp;
 	t.justify = "right";
 	t.characters = 4;
+	d.jpgR.push(t);
 
-	d.stJPEGPercent = g2.add('statictext', undefined, s.FactorPercent);
+	t = g2.add('statictext', undefined, s.Percent);
+	d.jpgR.push(t);
+
+
+	g2 = g1.add('group');
+	g2.orientation = 'row';		// horizontal layout
+	g2.alignChildren = 'center';
+	g2.spacing = 1;
+	g2.margins = [this.marginLeft, 0, 0, 0];
+
+	t = g2.add('statictext', undefined, s.Crop);
+	t.helpTip = s.CropHelp;
+	t.justify = 'right';
+	d.jpgC.push(t);
+
+	t = d.slJPEGCrop = g2.add('slider', undefined, g.MinResize, g.MinResize, g.MaxResize);
+	d.jpgC.push(t);
+
+	t = d.enJPEGCrop = g2.add('editnumber', undefined, undefined, g.MinResize, g.MaxResize);
+	t.helpTip = s.CropHelp;
+	t.justify = "right";
+	t.characters = 4;
+	d.jpgC.push(t);
+
+	t = g2.add('statictext', undefined, s.Percent);
+	d.jpgC.push(t);
 
 
 	// -- PNG section ------
@@ -372,18 +410,46 @@ function ParametersDialog(params, filesFromBridge)
 	g2.spacing = 1;
 	g2.margins = [this.marginLeft, 0, 0, 0];
 
-	t = d.stPNGFactor = g2.add('statictext', undefined, s.Factor);
-	t.helpTip = s.FactorHelp;
+	t = g2.add('statictext', undefined, s.Resize);
+	t.helpTip = s.ResizeHelp;
 	t.justify = 'right';
+	d.pngR.push(t);
 
-	t = d.slPNGFactor = g2.add('slider', undefined, g.MinResize, g.MinResize, g.MaxResize);
+	t = d.slPNGResize = g2.add('slider', undefined, g.MinResize, g.MinResize, g.MaxResize);
+	d.pngR.push(t);
 
-	t = d.enPNGFactor = g2.add('editnumber', undefined, undefined, g.MinResize, g.MaxResize);
-	t.helpTip = s.FactorHelp;
+	t = d.enPNGResize = g2.add('editnumber', undefined, undefined, g.MinResize, g.MaxResize);
+	t.helpTip = s.ResizeHelp;
 	t.justify = "right";
 	t.characters = 4;
+	d.pngR.push(t);
 
-	d.stPNGPercent = g2.add('statictext', undefined, s.FactorPercent);
+	t = g2.add('statictext', undefined, s.Percent);
+	d.pngR.push(t);
+
+
+	g2 = g1.add('group');
+	g2.orientation = 'row';		// horizontal layout
+	g2.alignChildren = 'center';
+	g2.spacing = 1;
+	g2.margins = [this.marginLeft, 0, 0, 0];
+
+	t = g2.add('statictext', undefined, s.Crop);
+	t.helpTip = s.CropHelp;
+	t.justify = 'right';
+	d.pngC.push(t);
+
+	t = d.slPNGCrop = g2.add('slider', undefined, g.MinResize, g.MinResize, g.MaxResize);
+	d.pngC.push(t);
+
+	t = d.enPNGCrop = g2.add('editnumber', undefined, undefined, g.MinResize, g.MaxResize);
+	t.helpTip = s.CropHelp;
+	t.justify = "right";
+	t.characters = 4;
+	d.pngC.push(t);
+
+	t = g2.add('statictext', undefined, s.Percent);
+	d.pngC.push(t);
 
 
 	// -- PSD section ------
@@ -445,18 +511,46 @@ function ParametersDialog(params, filesFromBridge)
 	g2.spacing = 1;
 	g2.margins = [this.marginLeft, 0, 0, 0];
 
-	t = d.stPSDFactor = g2.add('statictext', undefined, s.Factor);
-	t.helpTip = s.FactorHelp;
+	t = g2.add('statictext', undefined, s.Resize);
+	t.helpTip = s.ResizeHelp;
 	t.justify = 'right';
+	d.psdR.push(t);
 
-	t = d.slPSDFactor = g2.add('slider', undefined, g.MinResize, g.MinResize, g.MaxResize);
+	t = d.slPSDResize = g2.add('slider', undefined, g.MinResize, g.MinResize, g.MaxResize);
+	d.psdR.push(t);
 
-	t = d.enPSDFactor = g2.add('editnumber', undefined, undefined, g.MinResize, g.MaxResize);
-	t.helpTip = s.FactorHelp;
+	t = d.enPSDResize = g2.add('editnumber', undefined, undefined, g.MinResize, g.MaxResize);
+	t.helpTip = s.ResizeHelp;
 	t.justify = "right";
 	t.characters = 4;
+	d.psdR.push(t);
 
-	d.stPSDPercent = g2.add('statictext', undefined, s.FactorPercent);
+	t = g2.add('statictext', undefined, s.Percent);
+	d.psdR.push(t);
+
+
+	g2 = g1.add('group');
+	g2.orientation = 'row';		// horizontal layout
+	g2.alignChildren = 'center';
+	g2.spacing = 1;
+	g2.margins = [this.marginLeft, 0, 0, 0];
+
+	t = g2.add('statictext', undefined, s.Crop);
+	t.helpTip = s.CropHelp;
+	t.justify = 'right';
+	d.psdC.push(t);
+
+	t = d.slPSDCrop = g2.add('slider', undefined, g.MinResize, g.MinResize, g.MaxResize);
+	d.psdC.push(t);
+
+	t = d.enPSDCrop = g2.add('editnumber', undefined, undefined, g.MinResize, g.MaxResize);
+	t.helpTip = s.CropHelp;
+	t.justify = "right";
+	t.characters = 4;
+	d.psdC.push(t);
+
+	t = g2.add('statictext', undefined, s.Percent);
+	d.psdC.push(t);
 
 
 	// -- TIFF section ------
@@ -518,18 +612,46 @@ function ParametersDialog(params, filesFromBridge)
 	g2.spacing = 1;
 	g2.margins = [this.marginLeft, 0, 0, 0];
 
-	t = d.stTIFFFactor = g2.add('statictext', undefined, s.Factor);
-	t.helpTip = s.FactorHelp;
+	t = g2.add('statictext', undefined, s.Resize);
+	t.helpTip = s.ResizeHelp;
 	t.justify = 'right';
+	d.tifR.push(t);
 
-	t = d.slTIFFFactor = g2.add('slider', undefined, g.MinResize, g.MinResize, g.MaxResize);
+	t = d.slTIFFResize = g2.add('slider', undefined, g.MinResize, g.MinResize, g.MaxResize);
+	d.tifR.push(t);
 
-	t = d.enTIFFFactor = g2.add('editnumber', undefined, undefined, g.MinResize, g.MaxResize);
-	t.helpTip = s.FactorHelp;
+	t = d.enTIFFResize = g2.add('editnumber', undefined, undefined, g.MinResize, g.MaxResize);
+	t.helpTip = s.ResizeHelp;
 	t.justify = "right";
 	t.characters = 4;
+	d.tifR.push(t);
 
-	d.stTIFFPercent = g2.add('statictext', undefined, s.FactorPercent);
+	t = g2.add('statictext', undefined, s.Percent);
+	d.tifR.push(t);
+
+
+	g2 = g1.add('group');
+	g2.orientation = 'row';		// horizontal layout
+	g2.alignChildren = 'center';
+	g2.spacing = 1;
+	g2.margins = [this.marginLeft, 0, 0, 0];
+
+	t = g2.add('statictext', undefined, s.Crop);
+	t.helpTip = s.CropHelp;
+	t.justify = 'right';
+	d.tifC.push(t);
+
+	t = d.slTIFFCrop = g2.add('slider', undefined, g.MinResize, g.MinResize, g.MaxResize);
+	d.tifC.push(t);
+
+	t = d.enTIFFCrop = g2.add('editnumber', undefined, undefined, g.MinResize, g.MaxResize);
+	t.helpTip = s.CropHelp;
+	t.justify = "right";
+	t.characters = 4;
+	d.tifC.push(t);
+
+	t = g2.add('statictext', undefined, s.Percent);
+	d.tifC.push(t);
 
 
 	// ---- section 4: run preset actions and copyright -------------------------
@@ -699,6 +821,13 @@ ParametersDialog.prototype.SetEventHandlers = function ()
 		dlg.cbOpenFirst.parent.layout.layout();
 
 
+		// align sliders
+		me.AlignSliderControls(dlg.jpgR, dlg.jpgC);
+		me.AlignSliderControls(dlg.pngR, dlg.pngC);
+		me.AlignSliderControls(dlg.psdR, dlg.psdC);
+		me.AlignSliderControls(dlg.tifR, dlg.tifC);
+
+
 		// align the resize factor groups
 		var ts = dlg.grpFileType;
 		var farRight = ts.grpJPEG.grpRight.location.x;
@@ -712,7 +841,7 @@ ParametersDialog.prototype.SetEventHandlers = function ()
 		ts.grpPSD.grpRight.location.x = farRight;
 		ts.grpTIFF.grpRight.location.x = farRight;
 
-		ts.layout();	// make sure container still fits
+		ts.layout.layout();	// make sure container still fits
 	};
 
 
@@ -881,89 +1010,25 @@ ParametersDialog.prototype.SetEventHandlers = function ()
 
 	dlg.cbResizeJPEG.onClick = function ()
 	{
-		var value = this.value && dlg.cbJPEG.value;
-
-		dlg.stJPEGFactor.enabled = value;
-		dlg.enJPEGFactor.enabled = value;
-		dlg.stJPEGPercent.enabled = value;
+		me.EnableDisableCtrlGroups([dlg.jpgR, dlg.jpgC], this.value && dlg.cbJPEG.value);
 	};
 
 
 	dlg.cbResizePNG.onClick = function ()
 	{
-		var value = this.value && dlg.cbPNG.value;
-
-		dlg.stPNGFactor.enabled = value;
-		dlg.enPNGFactor.enabled = value;
-		dlg.stPNGPercent.enabled = value;
+		me.EnableDisableCtrlGroups([dlg.pngR, dlg.pngC], this.value && dlg.cbPNG.value);
 	};
 
 
 	dlg.cbResizePSD.onClick = function ()
 	{
-		var value = this.value && dlg.cbPSD.value;
-
-		dlg.stPSDFactor.enabled = value;
-		dlg.enPSDFactor.enabled = value;
-		dlg.stPSDPercent.enabled = value;
+		me.EnableDisableCtrlGroups([dlg.psdR, dlg.psdC], this.value && dlg.cbPSD.value);
 	};
 
 
 	dlg.cbResizeTIFF.onClick = function ()
 	{
-		var value = this.value && dlg.cbTIFF.value;
-
-		dlg.stTIFFFactor.enabled = value;
-		dlg.enTIFFFactor.enabled = value;
-		dlg.stTIFFPercent.enabled = value;
-	};
-
-
-	dlg.slJPEGFactor.onChanging = function ()
-	{
-		dlg.slJPEGFactor.helpTip = dlg.enJPEGFactor.value = this.value;
-	};
-
-
-	dlg.slPNGFactor.onChanging = function ()
-	{
-		dlg.slPNGFactor.helpTip = dlg.enPNGFactor.value = this.value;
-	};
-
-
-	dlg.slPSDFactor.onChanging = function ()
-	{
-		dlg.slPSDFactor.helpTip = dlg.enPSDFactor.value = this.value;
-	};
-
-
-	dlg.slTIFFFactor.onChanging = function ()
-	{
-		dlg.slTIFFFactor.helpTip = dlg.enTIFFFactor.value = this.value;
-	};
-
-
-	dlg.enJPEGFactor.onChange = function ()
-	{
-		dlg.slJPEGFactor.value = dlg.slJPEGFactor.helpTip = this.value;
-	};
-
-
-	dlg.enPNGFactor.onChange = function ()
-	{
-		dlg.slPNGFactor.value = dlg.slPNGFactor.helpTip = this.value;
-	};
-
-
-	dlg.enPSDFactor.onChange = function ()
-	{
-		dlg.slPSDFactor.value = dlg.slPSDFactor.helpTip = this.value;
-	};
-
-
-	dlg.enTIFFFactor.onChange = function ()
-	{
-		dlg.slTIFFFactor.value = dlg.slTIFFFactor.helpTip = this.value;
+		me.EnableDisableCtrlGroups([dlg.tifR, dlg.tifC], this.value && dlg.cbTIFF.value);
 	};
 
 
@@ -985,10 +1050,12 @@ ParametersDialog.prototype.SetEventHandlers = function ()
 	dlg.btnRun.onClick = function ()
 	{
 		var testFolder = null;
+		var scale;
 
 
 		// ---- validate dialog parameters -------------------------
 
+		// validate source and destination folders exist
 		if (!me.runningFromBridge)
 		{
 			if (dlg.rbUseFolder.value)
@@ -1030,6 +1097,8 @@ ParametersDialog.prototype.SetEventHandlers = function ()
 			}
 		}
 
+
+		// validate file type values
 		if (dlg.cbJPEG.value)
 		{
 			var compr = dlg.enJPEGQuality.value;
@@ -1041,15 +1110,7 @@ ParametersDialog.prototype.SetEventHandlers = function ()
 			}
 
 			if (dlg.cbResizeJPEG.value)
-			{
-				var s = dlg.enJPEGFactor.value;
-
-				if (isNaN(s) || s < g.MinResize || s > g.MaxResize)
-				{
-					alert(s.JPEGScaling);
-					return;
-				}
-			}
+				me.ValidateResizeArgs(dlg.enJPEGResize, s.JPEGScaling, dlg.enJPEGCrop, s.JPEGCropping);
 		}
 
 		if (dlg.cbPNG.value)
@@ -1063,38 +1124,15 @@ ParametersDialog.prototype.SetEventHandlers = function ()
 			}
 
 			if (dlg.cbResizePNG.value)
-			{
-				var s = dlg.enPNGFactor.value;
-
-				if (isNaN(s) || s < g.MinResize || s > g.MaxResize)
-				{
-					alert(s.PNGScaling);
-					return;
-				}
-			}
+				me.ValidateResizeArgs(dlg.enPNGResize, s.PNGScaling, dlg.enPNGCrop, s.PNGCropping);
 		}
 
 		if (dlg.cbPSD.value && dlg.cbResizePSD.value)
-		{
-			var s = dlg.enPSDFactor.value;
-
-			if (isNaN(s) || s < g.MinResize || s > g.MaxResize)
-			{
-				alert(s.PSDScaling);
-				return;
-			}
-		}
+			me.ValidateResizeArgs(dlg.enPSDResize, s.PSDScaling, dlg.enPSDCrop, s.PSDCropping);
 
 		if (dlg.cbTIFF.value && dlg.cbResizeTIFF.value)
-		{
-			var s = dlg.enTIFFFactor.value;
+			me.ValidateResizeArgs(dlg.enTIFFResize, s.TIFFScaling, dlg.enTIFFCrop, s.TIFFCropping);
 
-			if (isNaN(s) || s < g.MinResize || s > g.MaxResize)
-			{
-				alert(s.TIFFScaling);
-				return;
-			}
-		}
 
 		// make sure they have at least one file format specified for output
 		if (!(dlg.cbJPEG.value || dlg.cbPNG.value || dlg.cbPSD.value || dlg.cbTIFF.value))
@@ -1115,6 +1153,65 @@ ParametersDialog.prototype.SetEventHandlers = function ()
 	dlg.btnCancel.onClick = function ()
 	{
 		dlg.close(g.CancelButtonID);
+	};
+
+
+	this.SetSliderEventHandlers(dlg.jpgR);
+	this.SetSliderEventHandlers(dlg.jpgC);
+	this.SetSliderEventHandlers(dlg.pngR);
+	this.SetSliderEventHandlers(dlg.pngC);
+	this.SetSliderEventHandlers(dlg.psdR);
+	this.SetSliderEventHandlers(dlg.psdC);
+	this.SetSliderEventHandlers(dlg.tifR);
+	this.SetSliderEventHandlers(dlg.tifC);
+};
+
+
+
+/**
+ * Sets control event handlers for a pair of "slider" and
+ * "editnumber" controls.
+ * @param {any[]} group - Array of controls, containing at least
+ *												one "slider" and one "editnumber" control.
+ */
+ParametersDialog.prototype.SetSliderEventHandlers = function (group)
+{
+	var sl, en, g;
+
+	for (var i = 0;i < group.length;++i)
+	{
+		g = group[i];
+
+		switch (g.type)
+		{
+			case 'slider':
+				sl = g;
+				break;
+
+			case 'editnumber':
+				en = g;
+				break;
+		}
+
+		if (sl && en) break;
+	}
+
+	if (!sl || !en) throw new Error(s.NoSliderPairFound);
+
+
+	sl.onChanging = function ()
+	{
+		sl.helpTip = en.value = this.value;
+	};
+
+	sl.addEventListener('keydown', function (e)
+	{
+		if (e.eventPhase === 'target') this.onChanging();
+	});
+
+	en.onChange = function ()
+	{
+		sl.value = sl.helpTip = this.value;
 	};
 };
 
@@ -1196,26 +1293,30 @@ ParametersDialog.prototype.SetControlsFromParams = function ()
 
 	dlg.rbSaveInSame.value = prm.saveinsame;
 	dlg.rbSaveInNew.value = !dlg.rbSaveInSame.value;
-	dlg.cbOpenFirst.value = prm.open;
 	dlg.stDest.text = prm.dest || s.NoFolderSelected;
+	dlg.cbOpenFirst.value = prm.open;
 	dlg.cbJPEG.value = prm.jpeg;
 	dlg.cbPNG.value = prm.png;
 	dlg.cbPSD.value = prm.psd;
 	dlg.cbTIFF.value = prm.tiff;
+	dlg.cbResizeJPEG.value = prm.jpegresize;
+	dlg.slJPEGResize.value = dlg.enJPEGResize.value = prm.jpegrfactor;
+	dlg.slJPEGCrop.value = dlg.enJPEGCrop.value = prm.jpegcfactor;
+	dlg.cbResizePNG.value = prm.pngresize;
+	dlg.slPNGResize.value = dlg.enPNGResize.value = prm.pngrfactor;
+	dlg.slPNGCrop.value = dlg.enPNGCrop.value = prm.pngcfactor;
+	dlg.cbResizePSD.value = prm.psdresize;
+	dlg.slPSDResize.value = dlg.enPSDResize.value = prm.psdrfactor;
+	dlg.slPSDCrop.value = dlg.enPSDCrop.value = prm.psdcfactor;
+	dlg.cbResizeTIFF.value = prm.tiffresize;
+	dlg.slTIFFResize.value = dlg.enTIFFResize.value = prm.tiffrfactor;
+	dlg.slTIFFCrop.value = dlg.enTIFFCrop.value = prm.tiffcfactor;
 	dlg.enJPEGQuality.value = prm.jpegq;
 	dlg.cbJPEGConvertICC.value = prm.jpegconverticc;
 	dlg.enPNGCompression.value = prm.pngcomp;
 	dlg.cbPNGInterlaced.value = prm.pngi;
 	dlg.cbPSDMaxCompat.value = prm.psdmaxcompat;
 	dlg.cbTIFFLZW.value = prm.tifflzw;
-	dlg.cbResizeJPEG.value = prm.jpegresize;
-	dlg.slJPEGFactor.value = dlg.enJPEGFactor.value = prm.jpegfactor;
-	dlg.cbResizePNG.value = prm.pngresize;
-	dlg.slPNGFactor.value = dlg.enPNGFactor.value = prm.pngfactor;
-	dlg.cbResizePSD.value = prm.psdresize;
-	dlg.slPSDFactor.value = dlg.enPSDFactor.value = prm.psdfactor;
-	dlg.cbResizeTIFF.value = prm.tiffresize;
-	dlg.slTIFFFactor.value = dlg.enTIFFFactor.value = prm.tifffactor;
 	dlg.cbAction.value = prm.runaction;
 	dlg.etAuthor.text = prm.author;
 	dlg.etCopyrightInfo.text = prm.info;
@@ -1244,10 +1345,10 @@ ParametersDialog.prototype.EnableDisableControls = function ()
 	dlg.cbTIFF.onClick();
 
 	// initialize slider help tips
-	dlg.enJPEGFactor.onChange();
-	dlg.enPNGFactor.onChange();
-	dlg.enPSDFactor.onChange();
-	dlg.enTIFFFactor.onChange();
+	dlg.enJPEGResize.onChange();
+	dlg.enPNGResize.onChange();
+	dlg.enPSDResize.onChange();
+	dlg.enTIFFResize.onChange();
 
 	var index = this.SelectDropDownItem(dlg.ddSet, this.params.actionset);
 
@@ -1258,6 +1359,25 @@ ParametersDialog.prototype.EnableDisableControls = function ()
 	}
 
 	dlg.cbAction.onClick();
+};
+
+
+
+/**
+ * Enables or disables a set of controls identified by dictionary name.
+ * @param {any[][]} groups - A single controls array or an array of controls arrays.
+ * @param {boolean} enable - true, if controls are to be enabled; false otherwise.
+ */
+ParametersDialog.prototype.EnableDisableCtrlGroups = function (groups, enable)
+{
+	if (!groups instanceof Array) groups = [groups];
+
+	for (var i = 0;i < groups.length;++i)
+	{
+		var group = groups[i];
+
+		for (var j = 0;j < group.length;++j) group[j].enabled = enable;
+	}
 };
 
 
@@ -1299,13 +1419,17 @@ ParametersDialog.prototype.GetParamsFromDialog = function ()
 	p.psd = d.cbPSD.value;
 	p.tiff = d.cbTIFF.value;
 	p.jpegresize = d.cbResizeJPEG.value;
-	p.jpegfactor = d.enJPEGFactor.value;
+	p.jpegrfactor = d.enJPEGResize.value;
+	p.jpegcfactor = d.enJPEGCrop.value;
 	p.pngresize = d.cbResizePNG.value;
-	p.pngfactor = d.enPNGFactor.value;
+	p.pngrfactor = d.enPNGResize.value;
+	p.pngcfactor = d.enPNGCrop.value;
 	p.psdresize = d.cbResizePSD.value;
-	p.psdfactor = d.enPSDFactor.value;
+	p.psdrfactor = d.enPSDResize.value;
+	p.psdcfactor = d.enPSDCrop.value;
 	p.tiffresize = d.cbResizeTIFF.value;
-	p.tifffactor = d.enTIFFFactor.value;
+	p.tiffrfactor = d.enTIFFResize.value;
+	p.tiffcfactor = d.enTIFFCrop.value;
 	p.jpegq = d.enJPEGQuality.value;
 	p.jpegconverticc = d.cbJPEGConvertICC.value;
 	p.pngcomp = d.enPNGCompression.value;
@@ -1318,6 +1442,33 @@ ParametersDialog.prototype.GetParamsFromDialog = function ()
 	p.author = d.etAuthor.text;
 	p.info = d.etCopyrightInfo.text;
 	p.icc = d.cbIncludeICC.value;
+};
+
+
+
+/**
+ * Aligns two equally filled arrays of controls horizontally
+ * according to length of first control in each array.
+ * @param {any} group1 - Group of controls.
+ * @param {any} group2 - Group of controls.
+ */
+ParametersDialog.prototype.AlignSliderControls = function (group1, group2)
+{
+	if (!(group1 instanceof Array && group2 instanceof Array && group1.length === group2.length))
+		throw new Error(s.NoSliderPairFound);
+
+	for (var i = 1;i < group1.length;++i)
+	{
+		var l1 = group1[i].location, l2 = group2[i].location;
+		var min = l1.x < l2.x ? l1.x : l2.x;
+		var max = l1.x > l2.x ? l1.x : l2.x;
+		var diff = max - min;
+
+		l1.x = l2.x = max;
+	}
+
+	group1[0].parent.size.width += diff;
+	group2[0].parent.size.width += diff;
 };
 
 
@@ -1367,7 +1518,7 @@ ParametersDialog.prototype.SelectDropDownItem = function (dDown, setName)
 /**
  * Callback function for determining if a file or folder is to
  * be displayed in the Apple OS file browser dialog.
- * @param {any} file or folder
+ * @param {any} f - file or folder
  * @returns true, if file or folder is to be displayed; false otherwise.
  */
 ParametersDialog.prototype.MacXMLFilter = function (f)
@@ -1375,4 +1526,34 @@ ParametersDialog.prototype.MacXMLFilter = function (f)
 	var xmlExtension = ".xml";
 
 	return f.name.toLowerCase().indexOf(xmlExtension) == f.name.length - xmlExtension.length || f.type == 'TEXT' || f instanceof Folder;
+};
+
+
+
+/**
+ * Validates resizing and cropping controls for valid input.
+ * @param {EditNumber} enResize - EditNumber control holding resize factor.
+ * @param {string} scaleMsg - Validation error message for resizing factor.
+ * @param {EditNumber} enCrop - EditNumber control holding crop factor.
+ * @param {string} cropMsg - Validation error message for cropping factor.
+ */
+ParametersDialog.prototype.ValidateResizeArgs = function (enResize, scaleMsg, enCrop, cropMsg)
+{
+	var scale;
+
+	scale = enResize.value;
+
+	if (isNaN(scale) || scale < g.MinResize || scale > g.MaxResize)
+	{
+		alert(scaleMsg);
+		return;
+	}
+
+	scale = enCrop.value;
+
+	if (isNaN(scale) || scale < g.MinCrop || scale > g.MaxCrop)
+	{
+		alert(cropMsg);
+		return;
+	}
 };

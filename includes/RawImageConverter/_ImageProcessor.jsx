@@ -265,20 +265,18 @@ ImageProcessor.prototype.SaveFileAsJpeg = function (filePath, destFolder)
 	var folderPath = this.CreateDestFolder(filePath, destFolder, "JPEG");
 	var p = this.params;
 
-	app.activeDocument.flatten();
-	app.activeDocument.bitsPerChannel = BitsPerChannelType.EIGHT;
-
-	this.RemoveAlphaChannels();
+	if (p.jpegresize)
+	{
+		this.CropImage(p.jpegcfactor);
+		this.ResizeImage(p.jpegrfactor);
+	}
 
 	if (p.jpegconverticc) this.ConvertTosRGBProfile();
-	if (p.jpegresize) this.ResizeImage(p.jpegfactor);
-	if (p.runaction)
-	{
-		doAction(p.action, p.actionset);
-		app.activeDocument.flatten();
-		app.activeDocument.bitsPerChannel = BitsPerChannelType.EIGHT;
-		this.RemoveAlphaChannels();
-	}
+	if (p.runaction) doAction(p.action, p.actionset);
+
+	app.activeDocument.flatten();
+	app.activeDocument.bitsPerChannel = BitsPerChannelType.EIGHT;
+	this.RemoveAlphaChannels();
 
 	if (this.CanWriteToFolder(folderPath, filePath))
 	{
@@ -307,7 +305,12 @@ ImageProcessor.prototype.SaveFileAsPng = function (filePath, destFolder)
 	var folderPath = this.CreateDestFolder(filePath, destFolder, "PNG");
 	var p = this.params;
 
-	if (p.pngresize) this.ResizeImage(p.pngfactor);
+	if (p.pngresize)
+	{
+		this.CropImage(p.pngcfactor);
+		this.ResizeImage(p.pngrfactor);
+	}
+
 	if (p.runaction) doAction(p.action, p.actionset);
 
 	if (this.CanWriteToFolder(folderPath, filePath))
@@ -337,7 +340,12 @@ ImageProcessor.prototype.SaveFileAsPsd = function (filePath, destFolder)
 	var folderPath = this.CreateDestFolder(filePath, destFolder, "PSD");
 	var p = this.params;
 
-	if (p.psdresize) this.ResizeImage(p.psdfactor);
+	if (p.psdresize)
+	{
+		this.CropImage(p.psdcfactor);
+		this.ResizeImage(p.psdrfactor);
+	}
+
 	if (p.runaction) doAction(p.action, p.actionset);
 
 	if (!fileOps.IsFolderWritable(folderPath)) alert(s.CannotWriteToFolder + File(folderPath).fsName);
@@ -367,7 +375,12 @@ ImageProcessor.prototype.SaveFileAsTiff = function (filePath, destFolder)
 	var folderPath = this.CreateDestFolder(filePath, destFolder, "TIFF");
 	var p = this.params;
 
-	if (p.tiffresize) this.ResizeImage(p.tifffactor);
+	if (p.tiffresize)
+	{
+		this.CropImage(p.tiffcfactor);
+		this.ResizeImage(p.tiffrfactor);
+	}
+
 	if (p.runaction) doAction(p.action, p.actionset);
 
 	if (!fileOps.IsFolderWritable(folderPath)) alert(s.CannotWriteToFolder + File(folderPath).fsName);
@@ -460,15 +473,42 @@ ImageProcessor.prototype.RemoveAlphaChannels = function ()
  */
 ImageProcessor.prototype.ResizeImage = function (factor)
 {
-	if (factor < g.MinResize || factor > g.MaxResize)
+	if (isNaN(factor) || factor < g.MinResize || factor > g.MaxResize)
 	{
 		alert(s.Scaling);
 		return;
 	}
 
-	var doc = app.activeDocument;
+	if (factor !== 100)
+	{
+		var doc = app.activeDocument;
 
-	doc.resizeImage(doc.width * factor / 100);
+		doc.resizeImage(doc.width * factor / 100);
+	}
+};
+
+
+
+/**
+ * Crops the image to the given scale.
+ * @param {number} factor Percentage of original image dimensions.
+ */
+ImageProcessor.prototype.CropImage = function (factor)
+{
+	if (isNaN(factor) || factor < g.MinCrop || factor > g.MaxCrop)
+	{
+		alert(s.Cropping);
+		return;
+	}
+
+	if (factor !== 100)
+	{
+		var doc = app.activeDocument;
+		var scale = factor / 100;
+		var width = doc.width * scale, height = doc.height * scale, x = (doc.width - width) / 2, y = (doc.height - height) / 2;
+
+		doc.crop([x, y, width + x, height + y]);
+	}
 };
 
 

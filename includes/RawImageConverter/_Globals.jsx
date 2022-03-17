@@ -12,6 +12,11 @@
 	MaxResize: 100,
 	DefResize: 100,
 
+	// crop factor boundaries
+	MinCrop: 5,
+	MaxCrop: 100,
+	DefCrop: 100,
+
 	// A list of file extensions and types PS can read
 	FileExtensionsToRead: app.windowsFileTypes,
 	FileTypesToRead: app.macintoshFileTypes,
