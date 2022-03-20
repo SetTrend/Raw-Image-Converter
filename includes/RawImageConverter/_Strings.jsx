@@ -111,62 +111,32 @@ var s =
 	PickDest: localize("$$$/JavaScripts/ImageProcessor/PickDest=Pick a destination folder"),
 	SpecifySource: localize("$$$/JavaScripts/ImageProcessor/SpecifySource=Please specify a source folder."),
 	SpecifyDest: localize("$$$/JavaScripts/ImageProcessor/SpecifyDest=Please specify a destination folder."),
+	OneType: localize("$$$/JavaScripts/ImageProcessor/OneType=You must save to at least one file type."),
 	JPEGQuality: localize("$$$/JavaScripts/ImageProcessor/JPEGQuality=JPEG Quality must be between 0 and 12."),
 	PNGCompression: localize(
 		{
 			en: "PNG compression value must be between 0 and 9.",
 			de: "Die PNG-Kompression muss zwischen 0 und 9 liegen."
 		}),
-	JPEGScaling: localize(
+	ScalingDlg: localize(
 		{
-			en: "You must specify a valid scaling factor for JPEG when using resize image options for JPEG.",
-			de: "Du musst einen gültigen Skalierungsfaktor für JPEG angeben, wenn für JPEG die Skalierungsoption aktiviert ist."
+			en: "You must specify a valid scaling factor for {FileType} when using resize image options for {FileType}.",
+			de: "Du musst einen gültigen Skalierungsfaktor für {FileType} angeben, wenn für {FileType} die Skalierungsoption aktiviert ist."
 		}),
-	PNGScaling: localize(
+	CroppingDlg: localize(
 		{
-			en: "You must specify a valid scaling factor for PNG when using resize image options for JPEG.",
-			de: "Du musst einen gültigen Skalierungsfaktor für PNG angeben, wenn für JPEG die Skalierungsoption aktiviert ist."
+			en: "You must specify a valid cropping factor for {FileType} when using resize image options for {FileType}.",
+			de: "Du musst einen gültigen Freistellungsfaktor für {FileType} angeben, wenn für {FileType} die Skalierungsoption aktiviert ist."
 		}),
-	PSDScaling: localize(
-		{
-			en: "You must specify a valid scaling factor for PSD when using resize image options for PSD.",
-			de: "Du musst einen gültigen Skalierungsfaktor für PSD angeben, wenn für PSD die Skalierungsoption aktiviert ist."
-		}),
-	TIFFScaling: localize(
-		{
-			en: "You must specify a valid scaling factor for TIFF when using resize image options for TIFF.",
-			de: "Du musst einen gültigen Skalierungsfaktor für TIFF angeben, wenn für TIFF die Skalierungsoption aktiviert ist."
-		}),
-	JPEGCropping: localize(
-		{
-			en: "You must specify a valid cropping factor for JPEG when using resize image options for JPEG.",
-			de: "Du musst einen gültigen Freistellungsfaktor für JPEG angeben, wenn für JPEG die Skalierungsoption aktiviert ist."
-		}),
-	PNGCropping: localize(
-		{
-			en: "You must specify a valid cropping factor for PNG when using resize image options for JPEG.",
-			de: "Du musst einen gültigen Freistellungsfaktor für PNG angeben, wenn für JPEG die Skalierungsoption aktiviert ist."
-		}),
-	PSDCropping: localize(
-		{
-			en: "You must specify a valid cropping factor for PSD when using resize image options for PSD.",
-			de: "Du musst einen gültigen Freistellungsfaktor für PSD angeben, wenn für PSD die Skalierungsoption aktiviert ist."
-		}),
-	TIFFCropping: localize(
-		{
-			en: "You must specify a valid cropping factor for TIFF when using resize image options for TIFF.",
-			de: "Du musst einen gültigen Freistellungsfaktor für TIFF angeben, wenn für TIFF die Skalierungsoption aktiviert ist."
-		}),
-	OneType: localize("$$$/JavaScripts/ImageProcessor/OneType=You must save to at least one file type."),
 	Scaling: localize(
 		{
-			en: "Scaling factor must be defined to use scaling function!",
-			de: "Der Skalierungsfaktor muss definiert sein, damit die Skalierungsfunktion angewendet werden kann."
+			en: "Scaling factor must be defined and valid to use scaling function!",
+			de: "Der Skalierungsfaktor muss definiert und gültig sein, damit die Skalierungsfunktion angewendet werden kann."
 		}),
 	Cropping: localize(
 		{
-			en: "Scaling factor must be defined to use cropping function!",
-			de: "Der Skalierungsfaktor muss definiert sein, damit die Freistellungsfunktion angewendet werden kann."
+			en: "Scaling factor must be defined and valid to use cropping function!",
+			de: "Der Skalierungsfaktor muss definiert und gültig sein, damit die Freistellungsfunktion angewendet werden kann."
 		}),
 	NoSliderPairFound: localize(
 		{

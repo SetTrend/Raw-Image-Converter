@@ -15,6 +15,7 @@ function ParametersDialog(params, filesFromBridge)
 	this.runningFromBridge = !!(filesFromBridge && filesFromBridge.length && filesFromBridge.length > 0);		// true, if the Bridge app is running this script
 	this.actionInfo = new ActionInfo();
 	this.marginLeft = 15;	// left indentation
+	this.fileTypeRegExp = /{FileType}/gi;
 
 	var t, sg, g1, g2, g3, g4;	// temporarily holds a control for assigning properties
 	var borderProperty = { borderStyle: 'topDivider' };		// gray line at the top of a panel
@@ -1109,8 +1110,7 @@ ParametersDialog.prototype.SetEventHandlers = function ()
 				return;
 			}
 
-			if (dlg.cbResizeJPEG.value)
-				me.ValidateResizeArgs(dlg.enJPEGResize, s.JPEGScaling, dlg.enJPEGCrop, s.JPEGCropping);
+			if (dlg.cbResizeJPEG.value && !me.ValidateResizeArgs(dlg.enJPEGResize, dlg.enJPEGCrop, "JPEG")) return;
 		}
 
 		if (dlg.cbPNG.value)
@@ -1123,15 +1123,12 @@ ParametersDialog.prototype.SetEventHandlers = function ()
 				return;
 			}
 
-			if (dlg.cbResizePNG.value)
-				me.ValidateResizeArgs(dlg.enPNGResize, s.PNGScaling, dlg.enPNGCrop, s.PNGCropping);
+			if (dlg.cbResizePNG.value && !me.ValidateResizeArgs(dlg.enPNGResize, dlg.enPNGCrop, "PNG")) return;
 		}
 
-		if (dlg.cbPSD.value && dlg.cbResizePSD.value)
-			me.ValidateResizeArgs(dlg.enPSDResize, s.PSDScaling, dlg.enPSDCrop, s.PSDCropping);
+		if (dlg.cbPSD.value && dlg.cbResizePSD.value && !me.ValidateResizeArgs(dlg.enPSDResize, dlg.enPSDCrop, "PSD")) return;
 
-		if (dlg.cbTIFF.value && dlg.cbResizeTIFF.value)
-			me.ValidateResizeArgs(dlg.enTIFFResize, s.TIFFScaling, dlg.enTIFFCrop, s.TIFFCropping);
+		if (dlg.cbTIFF.value && dlg.cbResizeTIFF.value && !me.ValidateResizeArgs(dlg.enTIFFResize, dlg.enTIFFCrop, "TIFF")) return;
 
 
 		// make sure they have at least one file format specified for output
@@ -1269,12 +1266,22 @@ ParametersDialog.prototype.SetControlsFromParams = function ()
 {
 	var dlg = this.dlgMain;
 	var prm = this.params;
+	var folder;
 
 	this.sourceLongText = prm.source;
 	this.destLongText = prm.dest;
 
-	if (this.sourceLongText) this.sourceLongText = new File(this.sourceLongText).fsName;
-	if (this.destLongText) this.destLongText = new File(this.destLongText).fsName;
+	if (this.sourceLongText)
+	{
+		folder = new Folder(this.sourceLongText);
+		this.sourceLongText = folder && folder.exists ? folder.fsName : "";
+	}
+
+	if (this.destLongText)
+	{
+		folder = new Folder(this.destLongText);
+		this.destLongText = folder && folder.exists ? folder.fsName : "";
+	}
 
 	if (!this.runningFromBridge)
 	{
@@ -1293,7 +1300,7 @@ ParametersDialog.prototype.SetControlsFromParams = function ()
 
 	dlg.rbSaveInSame.value = prm.saveinsame;
 	dlg.rbSaveInNew.value = !dlg.rbSaveInSame.value;
-	dlg.stDest.text = prm.dest || s.NoFolderSelected;
+	dlg.stDest.text = this.destLongText || s.NoFolderSelected;
 	dlg.cbOpenFirst.value = prm.open;
 	dlg.cbJPEG.value = prm.jpeg;
 	dlg.cbPNG.value = prm.png;
@@ -1533,11 +1540,11 @@ ParametersDialog.prototype.MacXMLFilter = function (f)
 /**
  * Validates resizing and cropping controls for valid input.
  * @param {EditNumber} enResize - EditNumber control holding resize factor.
- * @param {string} scaleMsg - Validation error message for resizing factor.
  * @param {EditNumber} enCrop - EditNumber control holding crop factor.
- * @param {string} cropMsg - Validation error message for cropping factor.
+ * @param {string} fileType - File type name (e.g. "JPEG"), used for error message.
+ * @returns {boolean} true, if validation succeeded; false otherwise.
  */
-ParametersDialog.prototype.ValidateResizeArgs = function (enResize, scaleMsg, enCrop, cropMsg)
+ParametersDialog.prototype.ValidateResizeArgs = function (enResize, enCrop, fileType)
 {
 	var scale;
 
@@ -1545,15 +1552,17 @@ ParametersDialog.prototype.ValidateResizeArgs = function (enResize, scaleMsg, en
 
 	if (isNaN(scale) || scale < g.MinResize || scale > g.MaxResize)
 	{
-		alert(scaleMsg);
-		return;
+		alert(s.ScalingDlg.replace(this.fileTypeRegExp, fileType));
+		return false;
 	}
 
 	scale = enCrop.value;
 
 	if (isNaN(scale) || scale < g.MinCrop || scale > g.MaxCrop)
 	{
-		alert(cropMsg);
-		return;
+		alert(s.CroppingDlg.replace(this.fileTypeRegExp, fileType));
+		return false;
 	}
+
+	return true;
 };
